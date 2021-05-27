@@ -1,0 +1,91 @@
+azure-arm: output will be in this color.
+
+==> azure-arm: Running builder ...
+==> azure-arm: Getting tokens using device flow
+==> azure-arm: Getting token for https://management.azure.com/
+==> azure-arm: Loading auth token from file: C:\Users\IMHOFMI\.azure\packer\oauth-c98d2fc9-def0-43ca-a603-a8a1e287fa9dmgmt.json
+==> azure-arm: Auth token found in file: C:\Users\IMHOFMI\.azure\packer\oauth-c98d2fc9-def0-43ca-a603-a8a1e287fa9dmgmt.json
+==> azure-arm: Getting tokens using device flow
+==> azure-arm: Getting token for Vault resource
+==> azure-arm: Loading auth token from file: C:\Users\IMHOFMI\.azure\packer\oauth-c98d2fc9-def0-43ca-a603-a8a1e287fa9dvault.json
+==> azure-arm: Auth token found in file: C:\Users\IMHOFMI\.azure\packer\oauth-c98d2fc9-def0-43ca-a603-a8a1e287fa9dvault.json
+    azure-arm: Creating Azure Resource Manager (ARM) client ...
+==> azure-arm: WARNING: Zone resiliency may not be supported in West Europe, checkout the docs at https://docs.microsoft.com/en-us/azure/availability-zones/
+==> azure-arm: Creating resource group ...
+==> azure-arm:  -> ResourceGroupName : 'pkr-Resource-Group-unoqva9pb8'
+==> azure-arm:  -> Location          : 'West Europe'
+==> azure-arm:  -> Tags              :
+==> azure-arm: Validating deployment template ...
+==> azure-arm:  -> ResourceGroupName : 'pkr-Resource-Group-unoqva9pb8'
+==> azure-arm:  -> DeploymentName    : 'pkrdpunoqva9pb8'
+==> azure-arm: Deploying deployment template ...
+==> azure-arm:  -> ResourceGroupName : 'pkr-Resource-Group-unoqva9pb8'
+==> azure-arm:  -> DeploymentName    : 'pkrdpunoqva9pb8'
+==> azure-arm:
+==> azure-arm: Getting the VM's IP address ...
+==> azure-arm:  -> ResourceGroupName   : 'pkr-Resource-Group-unoqva9pb8'
+==> azure-arm:  -> PublicIPAddressName : 'pkripunoqva9pb8'
+==> azure-arm:  -> NicName             : 'pkrniunoqva9pb8'
+==> azure-arm:  -> Network Connection  : 'PublicEndpoint'
+==> azure-arm:  -> IP Address          : '13.80.174.140'
+==> azure-arm: Waiting for SSH to become available...
+==> azure-arm: Connected to SSH!
+==> azure-arm: Provisioning with shell script: C:\cygwin64\tmp\packer-shell295399583
+==> azure-arm: + echo Hello, World!
+==> azure-arm: + nohup busybox httpd -f -p 80
+==> azure-arm: Querying the machine's properties ...
+==> azure-arm:  -> ResourceGroupName : 'pkr-Resource-Group-unoqva9pb8'
+==> azure-arm:  -> ComputeName       : 'pkrvmunoqva9pb8'
+==> azure-arm:  -> Managed OS Disk   : '/subscriptions/b2742311-e3ea-4811-b990-7f844fd08f0d/resourceGroups/pkr-Resource-Group-unoqva9pb8/providers/Microsoft.Compute/disks/pkrosunoqva9pb8'
+==> azure-arm: Querying the machine's additional disks properties ...
+==> azure-arm:  -> ResourceGroupName : 'pkr-Resource-Group-unoqva9pb8'
+==> azure-arm:  -> ComputeName       : 'pkrvmunoqva9pb8'
+==> azure-arm: Powering off machine ...
+==> azure-arm:  -> ResourceGroupName : 'pkr-Resource-Group-unoqva9pb8'
+==> azure-arm:  -> ComputeName       : 'pkrvmunoqva9pb8'
+==> azure-arm: Capturing image ...
+==> azure-arm:  -> Compute ResourceGroupName : 'pkr-Resource-Group-unoqva9pb8'
+==> azure-arm:  -> Compute Name              : 'pkrvmunoqva9pb8'
+==> azure-arm:  -> Compute Location          : 'West Europe'
+==> azure-arm:  -> Image ResourceGroupName   : 'udacity-rg'
+==> azure-arm:  -> Image Name                : 'myPackerImage'
+==> azure-arm:  -> Image Location            : 'West Europe'
+==> azure-arm: 
+==> azure-arm: Deleting individual resources ...
+==> azure-arm: Adding to deletion queue -> Microsoft.Compute/virtualMachines : 'pkrvmunoqva9pb8'
+==> azure-arm: Adding to deletion queue -> Microsoft.Network/networkInterfaces : 'pkrniunoqva9pb8'
+==> azure-arm: Adding to deletion queue -> Microsoft.Network/publicIPAddresses : 'pkripunoqva9pb8'
+==> azure-arm: Adding to deletion queue -> Microsoft.Network/virtualNetworks : 'pkrvnunoqva9pb8'
+==> azure-arm: Waiting for deletion of all resources...
+==> azure-arm: Attempting deletion -> Microsoft.Network/networkInterfaces : 'pkrniunoqva9pb8'
+==> azure-arm: Attempting deletion -> Microsoft.Network/publicIPAddresses : 'pkripunoqva9pb8'
+==> azure-arm: Attempting deletion -> Microsoft.Network/virtualNetworks : 'pkrvnunoqva9pb8'
+==> azure-arm: Attempting deletion -> Microsoft.Compute/virtualMachines : 'pkrvmunoqva9pb8'
+==> azure-arm: Error deleting resource. Will retry.
+==> azure-arm: Name: pkripunoqva9pb8
+==> azure-arm: Error: network.PublicIPAddressesClient#Delete: Failure sending request: StatusCode=400 -- Original Error: Code="PublicIPAddressCannotBeDeleted" Message="Public IP address /subscriptions/b2742311-e3ea-4811-b990-7f844fd08f0d/resourceGroups/pkr-Resource-Group-unoqva9pb8/providers/Microsoft.Network/publicIPAddresses/pkripunoqva9pb8 can not be deleted since it is still allocated to resource /subscriptions/b2742311-e3ea-4811-b990-7f844fd08f0d/resourceGroups/pkr-Resource-Group-unoqva9pb8/providers/Microsoft.Network/networkInterfaces/pkrniunoqva9pb8/ipConfigurations/ipconfig. In order to delete the public IP, disassociate/detach the Public IP address from the resource.  To learn how to do this, see aka.ms/deletepublicip." Details=[]
+==> azure-arm:
+==> azure-arm: Error deleting resource. Will retry.
+==> azure-arm: Name: pkrvnunoqva9pb8
+==> azure-arm: Error: network.VirtualNetworksClient#Delete: Failure sending request: StatusCode=400 -- Original Error: Code="InUseSubnetCannotBeDeleted" Message="Subnet pkrsnunoqva9pb8 is in use by /subscriptions/b2742311-e3ea-4811-b990-7f844fd08f0d/resourceGroups/pkr-Resource-Group-unoqva9pb8/providers/Microsoft.Network/networkInterfaces/pkrniunoqva9pb8/ipConfigurations/ipconfig and cannot be deleted. In order to delete the subnet, delete all the resources within the subnet. See aka.ms/deletesubnet." Details=[]
+==> azure-arm:
+==> azure-arm: Attempting deletion -> Microsoft.Network/publicIPAddresses : 'pkripunoqva9pb8'
+==> azure-arm: Attempting deletion -> Microsoft.Network/virtualNetworks : 'pkrvnunoqva9pb8'
+==> azure-arm:  Deleting -> Microsoft.Compute/disks : '/subscriptions/b2742311-e3ea-4811-b990-7f844fd08f0d/resourceGroups/pkr-Resource-Group-unoqva9pb8/providers/Microsoft.Compute/disks/pkrosunoqva9pb8'
+==> azure-arm: Removing the created Deployment object: 'pkrdpunoqva9pb8'
+==> azure-arm: 
+==> azure-arm: Cleanup requested, deleting resource group ...
+==> azure-arm: Resource group has been deleted.
+Build 'azure-arm' finished after 5 minutes 31 seconds.
+
+==> Wait completed after 5 minutes 31 seconds
+
+==> Builds finished. The artifacts of successful builds are:
+--> azure-arm: Azure.ResourceManagement.VMImage:
+
+OSType: Linux
+ManagedImageResourceGroupName: udacity-rg
+ManagedImageName: myPackerImage
+ManagedImageId: /subscriptions/b2742311-e3ea-4811-b990-7f844fd08f0d/resourceGroups/udacity-rg/providers/Microsoft.Compute/images/myPackerImage
+ManagedImageLocation: West Europe
+

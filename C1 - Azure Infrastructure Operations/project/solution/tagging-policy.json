@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "displayName": "Require tags",
+    "description": "Deny creation of ressources without tags",
+    "mode": "Indexed",
+    "policyRule": {
+      "if": {
+          "value": "length(field('tags'))",
+          "equals": "0"     
+      },
+      "then": {
+        "effect": "deny"
+      }
+    }
+  }
+}
