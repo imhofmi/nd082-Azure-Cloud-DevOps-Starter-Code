@@ -2,7 +2,7 @@
 
 ### Introduction and overview
 This project deploys a customizable and scalable web server in Azure. 
-Packer is used for Server Templating. The contained a Packer template ([server.json](server.json)) extends a UbuntuServer 18.04-LTS image with a lightweight webserver. 
+Packer is used for Server Templating. The contained Packer template ([server.json](server.json)) extends a UbuntuServer 18.04-LTS image with a lightweight webserver. 
 Terraform is used for infrastructure creation. The contained Terraform templates ([main.tf](main.tf) and [vars.tf](vars.tf)) deploy all necessary resources in a configurable way.
 
 ### Getting Started
