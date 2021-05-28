@@ -33,38 +33,57 @@ resource "azurerm_network_security_group" "main" {
   name                = "${var.prefix}-nsg"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
-
-  //explicitly allow access to other VMs on the subnet
-  security_rule {
-    name                       = "AllowOutboundVirtualNetwork"
-    priority                   = 100
-    direction                  = "Outbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "*"
-    source_address_prefix      = "VirtualNetwork"
-    destination_address_prefix = "VirtualNetwork"
-  }
-
-  //deny direct access from the internet
-  security_rule {
-    name                       = "DenyInboundInternet"
-    priority                   = 101
-    direction                  = "Inbound"
-    access                     = "Deny"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "*"
-    source_address_prefix      = "Internet"
-    destination_address_prefix = "*"
-  }
-
   tags = {
     environment = "training"
   }
 }
 
+//network security rule: deny acces to virtual machines from outside the vnet
+resource "azurerm_network_security_rule" "mainsr100" {
+  name                        = "DenyVNetInboundFromInternet"
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Deny"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "Internet"
+  destination_address_prefix  = "VirtualNetwork"
+  resource_group_name         = azurerm_resource_group.main.name
+  network_security_group_name = azurerm_network_security_group.main.name
+}
+  
+//network security rule: explicitly allow access to other VMs on the subnet
+resource "azurerm_network_security_rule" "mainsr101" {
+  name                        = "AllowVnetInboundFromVnet"
+  priority                    = 101
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "VirtualNetwork"
+  destination_address_prefix  = "VirtualNetwork"
+  resource_group_name         = azurerm_resource_group.main.name
+  network_security_group_name = azurerm_network_security_group.main.name
+}
+
+//network security rule: explicitly allow access to other VMs on the subnet
+resource "azurerm_network_security_rule" "mainsr102" {
+  name                        = "AllowVnetOutboundFromVnet"
+  priority                    = 102
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "VirtualNetwork"
+  destination_address_prefix  = "VirtualNetwork"
+  resource_group_name         = azurerm_resource_group.main.name
+  network_security_group_name = azurerm_network_security_group.main.name
+}
+
+//associate network security group to subnet
 resource "azurerm_subnet_network_security_group_association" "main" {
   subnet_id                 = azurerm_subnet.internal.id
   network_security_group_id = azurerm_network_security_group.main.id
